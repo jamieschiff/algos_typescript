@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "target": "ES2015",
     "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "jsx": "react",
-    "esModuleInterop": true
+    "lib": ["ES6"],
+    "strict": true
+    // "removeComments": true,
+    // "preserveConstEnums": true,
+    // "sourceMap": true,
+    // "jsx": "react",
+    // "esModuleInterop": true
   },
-    "include": ["src/**/*"]
+    "include": ["hack_hour"],
+    "exclude": ["node_modules"]
 }
 
 
