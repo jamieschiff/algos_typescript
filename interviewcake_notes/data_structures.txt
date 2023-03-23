@@ -1,0 +1,29 @@
+arrays:
+- faster lookup time for elements in the middle of an array (O(1)) - BUT need enough uninterrupted space in RAM to store the entire array - and array items need to be same size
+- have to specify size ahead of time (unless its a dynamic array)
+- strengths:
+  -fast lookups - retrieving element is always O(1)
+  -fast appends - adding elements to the end of an array is always O(1)
+- weaknesses:
+  -fixed size - need to specify how many elements going to store ahead of time
+  -costly inserts & deletes - have to "scoot over" the other elements to fill in or close the gap, which takes O(n) time
+- building blocks for other, nore complex data structures (stacks / queues / etc)
+- array slicing : have to think about time & space cost. in reality, when you slice you are:
+  - allocating a new array (taking up space in memory)
+  - copying elements from the original array to the new array
+  - O(n) time & space complexity
+
+linked lists:
+- dont need to be sequential in memory - just need to have a pointer to the next node
+- O(1) lookup time for the appending or removing first or last node
+- O(i) lookup time for nodes in the middle
+- not cache-friendly 
+
+
+in-place algorithim:
+- modifies data structures or objets outside of its own stack fram - ie stored on the process heap or in the stack frame of a calling function => changes made by the function remain after the call completes (modifying original data structure versus creating a new one)
+- aka destructive -> original input is "destroyed" or "modified" during the function call 
+- primitive values are copied when passed as arguments -> doesnt change long-term / in a way visible to other functions
+- more complex data structures (arrays, heaps, hash tables) are passed by reference 
+- saves time and space - avoids cost of initializing or copying data structures
+- can cause side effects -> input is destored or altered
