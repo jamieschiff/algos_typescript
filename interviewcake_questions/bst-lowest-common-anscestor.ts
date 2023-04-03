@@ -24,5 +24,5 @@ const bst_lowest_common_ancestor = (root: TreeNode | null, p: TreeNode, q: TreeN
   }
   //if p and q are on different sides of the current node, the current node is the LCA
   return root
-  
 } 
+
