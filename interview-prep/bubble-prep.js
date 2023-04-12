@@ -42,27 +42,33 @@ const removeDuplicates = (array) => {
 
 //APPROACH: loop through each item in the first array, check if it exists in all other arrays, and push it to the result array if it does.
 const findCommonItems = (...arrays) => {
+  //store common items
   const result = [];
-
+  //check if no arrays are passed in, if so return the empty array
   if (arrays.length === 0) return result;
-
+  //initialize variable and set it equal to the first array passed in
   const firstArray = arrays[0];
-
+  //iterate over each item in the first array
   for (let i = 0; i < firstArray.length; i++) {
     const currentItem = firstArray[i];
-
+    //check if the result array already contains the current item
     if (result.includes(currentItem)) {
+      //if it does, move on to the next element in the array
       continue;
     }
     let itemFound = true;
-
+    //loop through the remaining arrays
     for (let j = 1; j < arrays.length; j++) {
+      //check if the currentItem is not included in the current array
       if (!arrays[j].includes(currentItem)) {
+        //if that array does not include the current item set itemFound to false and break out of the current loop
         itemFound = false;
         break;
       }
     }
+    //if that array does contain the current item
     if (itemFound) {
+      //add the current item to the result array
       result.push(currentItem);
     }
   }
