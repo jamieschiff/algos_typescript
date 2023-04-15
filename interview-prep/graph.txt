@@ -1,0 +1,11 @@
+graph = nodes + edges
+nodes = islands / letter values
+  - aka vertex
+edges = connections between a pair of nodes
+
+DESCRIBE RELATIONSHIPS BETWEEN things
+- ie nodes being cities, and edges are rodes that connect cities
+
+directed graph = can only travel one way
+
+undirected graph = can travel either way

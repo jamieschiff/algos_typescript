@@ -1,3 +1,10 @@
+//SUBSETSUM
+const subsetSum = (nums, target, index = 0) => {
+  if (target === 0) return true;
+  if (index === nums.length) return false;
+  return subsetSum(nums, target - nums[i], i++) || subsetSum(nums, target, i++);
+};
+
 //ALL SUBSETS: given an array of distinct integers, return all possible subsets
 
 const allSubsets = (array) => {
@@ -28,5 +35,14 @@ const allSubsets = (array) => {
 const array = [1, 7, 4]; //[[1,7,4], [1,7], [1,4], [1], [7,4], [7], [4], []]
 console.log(allSubsets(array));
 
-
-//HT PERMUTATIONS: let's say 
+//HT PERMUTATIONS: let's say
+const htPermutations = (heads, tails) => {
+  const result = [];
+  const generate = (str, m, n) => {
+    if (m === 0 && n === 0) return result.push(str);
+    if (m > 0) generate(str + 'H', m - 1, n);
+    if (n > 0) generate(str + 'T', m, n - 1);
+  };
+  generate('', heads, tails);
+  return result;
+};
