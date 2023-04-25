@@ -9,3 +9,74 @@ DESCRIBE RELATIONSHIPS BETWEEN things
 directed graph = can only travel one way
 
 undirected graph = can travel either way
+
+adjacency list - way to represent graph information 
+- hashmap to represent -> data structure with constant look up time and key/value mapping
+
+traversal:
+
+depth first = stack
+- go all the way deep before exploring any neighbors
+
+//graph given as an adjacency list - think about source node as current location
+//ITERATIVE - making an explicit stack using an array
+const dfs = (graph, source) => {
+  const stack = [source]
+  const result = []
+  while(stack.length){
+    const current = stack.pop()
+    result.push(current)
+    //graph[current] => array of current's neighbors
+    for (let neighbor of graph[current]){
+      stack.push(neighbor)
+    }
+  }
+  return result
+}
+
+//RECURSIVE - uses the underlying call stack as its "stack"
+const dfs = (graph, source) => {
+  const result = []
+  const traverse = (graph, source) => {
+  result.push(source)
+  for (let neighbor of graph[source]){
+    //graph doesnt change, but want to change the source node 
+    traverse(graph, neighbor)
+    }
+  }
+  traverse(graph, source)
+  return result
+}
+
+
+
+breadth first = queue
+- go through all of the neighbors before going to another level of depth
+
+
+const bfs = (graph, source) => {
+  const queue = [source]
+  const result = []
+  while(queue.length){
+    const current = queue.shift()
+    result.push(current)
+    for (let neighbor of graph[current]){
+      queue.push(neighbor)
+    }
+  }
+  return result
+}
+
+//CONVERTING EDGES TO ADJACENCY LIST === UNDIRECTED GRAPH
+//IF A IS A NEIGHBOR OF B, B SHOULD BE A NEIGHBOR OF A
+const buildGraph = (edges) => {
+  const graph = {}
+  for (let edge of edges){
+    const [a, b] = edge
+    if(!(a in graph)) graph[a] = []
+    if(!(b in graph)) graph[b] = []
+    graph[a].push(b)
+    graph[b].push(a)
+  }
+  return graph
+}

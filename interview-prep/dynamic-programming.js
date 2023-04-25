@@ -21,3 +21,15 @@ const maxSubArray = (input) => {
 
 const input = [1, -2, 5, -3, 4, -1, 6];
 console.log(maxSubArray(input));
+
+const maxSubArray2 = (input) => {
+  if (!input) return 0;
+  let maxSum = input[0];
+  let currentSum = input[0];
+  for (let i = 1; i < input.length; i++) {
+    const currentNumber = input[i];
+    currentSum = Math.max(currentNumber, currentNumber + currentSum);
+    maxSum = Math.max(currentSum, maxSum);
+  }
+  return maxSum;
+};

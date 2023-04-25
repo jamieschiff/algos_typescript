@@ -7,6 +7,12 @@ const treeSumDFS = (root) => {
   }
   return root.val + treeSumDFS(root.left) + treeSumDFS(root.right);
 };
+
+const treeSum2 = (root) => {
+  const leftValue = root.left ? treeSum2(root.left) : 0;
+  const rightValue = root.right ? treeSum2(root.right) : 0;
+  return root.value + leftValue + rightValue;
+};
 //bfs
 const treeSumBFS = (root) => {
   let totalSum = 0;
@@ -102,3 +108,48 @@ const bottomRightValue = (root) => {
   // Step 3: Return the right-most value in the bottom-most level
   return rightMostValue;
 };
+
+//BUILD BST
+const sortedArrayToBST = (nums) => {
+  const buildBST = (left, right) => {
+    if (left > right) {
+      return null; // Empty subarray
+    }
+
+    const mid = Math.floor((left + right) / 2); // Choose middle element as root
+    const root = new TreeNode(nums[mid]); // Create root node
+
+    root.left = buildBST(left, mid - 1); // Recursively build left subtree
+    root.right = buildBST(mid + 1, right); // Recursively build right subtree
+
+    return root;
+  };
+
+  return buildBST(0, nums.length - 1); // Start with entire array
+};
+
+
+const isBalanced = (root) => {
+  //if tree is empty -> balanced
+  if(!root) return true
+  //heigh function will return -1 if unbalanced
+  const height = getHeight(root)
+  return height === -1 ? false : true
+}
+//returns the height of a current subtree
+const getHeight = (root)=>{
+//base case
+if(root === null) return 0
+//height of left subtree
+const leftHeight = getHeight(root.left)
+
+//height of right subtree
+const rightHeight = getHeight(root.right)
+
+//if left or right is unbalanced return -1
+if(leftHeight === -1 || rightHeight === -1) return -1
+//if their heights differ by more than 1, return -1
+if(Math.abs(leftHeight - rightHeight) > 1) return -1
+//otherwise, return the height of this current subtree as max(left, right) + 1 (add a level of depth for self)
+return Math.max(leftHeight, rightHeight) + 1
+}
