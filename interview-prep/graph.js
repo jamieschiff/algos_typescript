@@ -148,7 +148,33 @@ const shortestPathDFS = (edges, nodeA, nodeB) => {
 //space complexity: worst case O(numRows * numColumns) => if you visit every set
 
 //LARGEST COMPONENT
-
+//time: O(N + E) where N is the number of nodes and E is the number of edges -> DFS visits each node and edge exactly once
+//space: O(N+E) -> adding each to the visited set and using the call stack when doing DFS
+const largestComponent = (adjacencyList) => {
+  const visited = new Set();
+  let maxComponentSize = 0;
+  const dfs = (node) => {
+    //mark the current node as visited
+    visited.add(node);
+    //visit the current nodes unvisited neighbors neighbors
+    for (let neighbor of adjacencyList[node]) {
+      if (!visited.has(neighbor)) {
+        dfs(neighbor);
+      }
+    }
+  };
+  for (let node in adjacencyList) {
+    if (!visited.has(node)) {
+      //starting with an unvisited node -> recursively visit all of the unvisited neighbors
+      let componentSize = 0;
+      dfs(node);
+      visited.forEach((visitedNode) => componentSize++);
+      //once visited each of the unvisited neighbors update the max size
+      maxComponentSize = Math.max(maxComponentSize, componentSize);
+    }
+  }
+  return maxComponentSize;
+};
 //CONNECTED COMPONENTS COUNT
 
 //MIN ISLANDS
@@ -275,7 +301,7 @@ const exploreSize = (grid, r, c, visited) => {
   // const rowInbounds = 0 <= r && r < grid.length;
   // const colInbounds = 0 <= c && c < grid[0].length;
   // if (!rowInbounds || !colInbounds) return 0;
-  if(!inbounds(grid, r, c)) return 0
+  if (!inbounds(grid, r, c)) return 0;
 
   if (grid[r][c] === 'W') return 0;
 
@@ -291,28 +317,38 @@ const exploreSize = (grid, r, c, visited) => {
   return size;
 };
 
-const buildGraphDirected = (numCoures, prereqs) =>{
-  const graph = {}
-  for (let i = 0; i < numCourses; i++){
-    graph[i] = []
+const buildGraphDirected = (numCoures, prereqs) => {
+  const graph = {};
+  for (let i = 0; i < numCourses; i++) {
+    graph[i] = [];
   }
-  for (let prereq of prereqs){
-    const [a,b]=prereq
-    graph[a].push(b)
+  for (let prereq of prereqs) {
+    const [a, b] = prereq;
+    graph[a].push(b);
   }
-  return graph
-}
+  return graph;
+};
 
-
-
-const cloneGraph = (node)=> {
-  if (node === null)return null
-  const map = new Map()
+const cloneGraph = (node) => {
+  if (node === null) return null;
+  const map = new Map();
   const clone = (root) => {
-    if(!map.has(root.val)){
-      map.set(root.val, new Node(root.val))
-      map.get(root.val).neighbors = root.neighbors.map(clone)
+    if (!map.has(root.val)) {
+      map.set(root.val, new Node(root.val));
+      map.get(root.val).neighbors = root.neighbors.map(clone);
+    }
+  };
+};
+
+//space: O(n), time: O(e)
+const hasPathDirectedGraphBFS = (graph, src, dst) => {
+  const queue = [src];
+  while (queue.length) {
+    const current = queue.shift();
+    if (current === dst) return true;
+    for (let neighbor of graph[current]) {
+      queue.push(neigbor);
     }
   }
-
-}
+  return false;
+};
